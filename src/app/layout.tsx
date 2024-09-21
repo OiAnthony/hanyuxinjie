@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeSwitch } from "~/components/theme-switch";
+import { Social } from "~/components/social";
 
 export const metadata: Metadata = {
   title: "汉语新解",
@@ -31,7 +32,10 @@ export default function RootLayout({
         <TRPCReactProvider>
           <NextUIProvider>
             <NextThemesProvider attribute="class" defaultTheme="dark">
-              <div className="absolute right-2 top-2"><ThemeSwitch /></div>
+              <div className="flex flex-row absolute right-2 top-2 space-x-2">
+                <Social />
+                <ThemeSwitch />
+              </div>
               {children}
             </NextThemesProvider>
           </NextUIProvider>
