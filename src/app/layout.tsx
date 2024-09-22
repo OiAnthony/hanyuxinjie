@@ -39,7 +39,7 @@ export default function RootLayout({
       <body>
         <TRPCReactProvider>
           <NextUIProvider>
-            <NextThemesProvider attribute="class" defaultTheme="dark">
+            <NextThemesProvider attribute="class" defaultTheme="light">
               <div className="flex flex-row absolute right-2 top-2 space-x-2">
                 <Social />
                 <ThemeSwitch />
