@@ -34,7 +34,7 @@ export default function Chat() {
 
       <div className="flex flex-row items-center justify-center gap-2">
         <Input isDisabled={loading} autoComplete="off" value={input} placeholder="请输入你想了解的词..." className="w-fit" onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && submit()} />
-        <Button isLoading={loading} radius="full" className="bg-gradient-to-tr from-purple-500 to-blue-500 text-white shadow-lg" onClick={submit}>
+        <Button data-umami-event="explain-button" data-umami-event-word={input} isLoading={loading} radius="full" className="bg-gradient-to-tr from-purple-500 to-blue-500 text-white shadow-lg" onClick={submit}>
           解释
         </Button>
       </div>
