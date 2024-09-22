@@ -13,10 +13,12 @@ export const maxDuration = 30;
 
 export default function Chat() {
   const { theme } = useTheme();
+  const [loading, setLoading] = useState(false);
   const [input, setInput] = useState('');
   const [streamObject, setStreamObject] = useState<StreamObject>();
 
   const submit = async () => {
+    setLoading(true);
     const { object: streamObject } = await streamChineseExplanation(input);
 
     for await (const content of readStreamableValue(streamObject)) {
@@ -24,14 +26,15 @@ export default function Chat() {
         setStreamObject(content);
       }
     }
+    setLoading(false);
   }
 
   return (
     <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch space-y-4 items-center">
 
       <div className="flex flex-row items-center justify-center gap-2">
-        <Input autoComplete="off" value={input} placeholder="请输入你想了解的词..." className="w-fit" onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && submit()} />
-        <Button radius="full" className="bg-gradient-to-tr from-purple-500 to-blue-500 text-white shadow-lg" onClick={submit}>
+        <Input isDisabled={loading} autoComplete="off" value={input} placeholder="请输入你想了解的词..." className="w-fit" onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && submit()} />
+        <Button isLoading={loading} radius="full" className="bg-gradient-to-tr from-purple-500 to-blue-500 text-white shadow-lg" onClick={submit}>
           解释
         </Button>
       </div>
