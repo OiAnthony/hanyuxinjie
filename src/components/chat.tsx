@@ -30,7 +30,7 @@ export default function Chat() {
   }
 
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch space-y-4 items-center">
+    <div className="flex flex-col w-full max-w-md mx-auto stretch space-y-4 items-center">
 
       <div className="flex flex-row items-center justify-center gap-2">
         <Input isDisabled={loading} autoComplete="off" value={input} placeholder="请输入你想了解的词..." className="w-fit" onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && submit()} />
