@@ -8,6 +8,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeSwitch } from "~/components/theme-switch";
 import { Social } from "~/components/social";
+import { env } from "~/env";
 
 export const metadata: Metadata = {
   title: "汉语新解",
@@ -28,6 +29,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
+      {
+        env.UMAMI_SCRIPT_SRC && env.UMAMI_WEBSITE_ID && (
+          <head>
+            <script defer src={env.UMAMI_SCRIPT_SRC} data-website-id={env.UMAMI_WEBSITE_ID}></script> 
+          </head>
+        )
+      }
       <body>
         <TRPCReactProvider>
           <NextUIProvider>

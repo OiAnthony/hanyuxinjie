@@ -13,6 +13,8 @@ export const env = createEnv({
     AI_BASE_URL: z.string().optional(),
     AI_API_KEY: z.string(),
     AI_MODEL_NAME: z.string(),
+    UMAMI_SCRIPT_SRC: z.string().url().optional(),
+    UMAMI_WEBSITE_ID: z.string().min(1).optional(),
   },
 
   /**
@@ -33,6 +35,8 @@ export const env = createEnv({
     AI_BASE_URL: process.env.AI_BASE_URL,
     AI_API_KEY: process.env.AI_API_KEY,
     AI_MODEL_NAME: process.env.AI_MODEL_NAME,
+    UMAMI_SCRIPT_SRC: process.env.UMAMI_SCRIPT_SRC,
+    UMAMI_WEBSITE_ID: process.env.UMAMI_WEBSITE_ID,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
