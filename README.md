@@ -30,7 +30,7 @@ Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/ver
 
 ## Thanks
 
-感谢 @lijigang 的汉语新解 prompt，在此基础之上改造成可结构化输出、小模型也可用的 prompt
+感谢 [@lijigang](https://github.com/lijigang) 的汉语新解 prompt，在此基础之上改造成可结构化输出、小模型也可用的 prompt
 
 感谢 [SiliconFlow](https://cloud.siliconflow.cn/i/wmHXWg4H) 赞助的 Qwen/Qwen2.5-7B-Instruct
 
