@@ -26,3 +26,13 @@ You can check out the [create-t3-app GitHub repository](https://github.com/t3-os
 ## How do I deploy this?
 
 Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+
+
+## Thanks
+
+感谢 @lijigang 的汉语新解 prompt，在此基础之上改造成可结构化输出、小模型也可用的 prompt
+
+感谢 [SiliconFlow](https://cloud.siliconflow.cn/i/wmHXWg4H) 赞助的 Qwen/Qwen2.5-7B-Instruct
+
+<img width="237" alt="image" src="https://github.com/user-attachments/assets/79c04498-4c82-41eb-a8d8-9a30d1c1bcd0">
+
