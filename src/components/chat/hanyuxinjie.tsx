@@ -1,21 +1,21 @@
 'use client';
 
-import { useState } from 'react';
-import { readStreamableValue } from 'ai/rsc';
-import { streamChineseExplanation } from '~/lib/chat/actions';
 import { Button, Divider, Input } from '@nextui-org/react';
-import { MagicCard } from '~/components/magicui/magic-card';
+import { readStreamableValue } from 'ai/rsc';
 import { useTheme } from "next-themes";
-import { type StreamObject } from '~/lib/chat/types';
+import { useState } from 'react';
+import { MagicCard } from '~/components/magicui/magic-card';
+import { streamChineseExplanation } from '~/lib/chat/actions';
+import { type HanyuxinjieStreamObject } from '~/lib/chat/types';
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
-export default function Chat() {
+export default function HanyuxinjieChat() {
   const { theme } = useTheme();
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState('');
-  const [streamObject, setStreamObject] = useState<StreamObject>();
+  const [streamObject, setStreamObject] = useState<HanyuxinjieStreamObject>();
 
   const submit = async () => {
     setLoading(true);
