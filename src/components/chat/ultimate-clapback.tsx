@@ -43,7 +43,7 @@ export default function UltimateClapbackChat() {
           <Input isDisabled={loading} autoComplete="off" value={input.badGuyRole} label="对方身份" placeholder="" className="w-fit" onChange={e => setInput({ ...input, badGuyRole: e.target.value })} onKeyDown={e => e.key === 'Enter' && submit()} />
         </div>
         <Textarea isDisabled={loading} autoComplete="off" value={input.badGuySpeechContent} label="对方说了什么？" placeholder="" className="w-full" onChange={e => setInput({ ...input, badGuySpeechContent: e.target.value })} onKeyDown={e => e.key === 'Enter' && submit()} />
-        <Button data-umami-event="ultimate-clapback-button" data-umami-event-word={`${input.background}_${input.badGuyRole}_${input.badGuySpeechContent}`} isLoading={loading} radius="full" className="bg-gradient-to-tr from-purple-500 to-blue-500 text-white shadow-lg" onClick={submit}>
+        <Button data-umami-event="ultimate-clapback-button" data-umami-event-background={input.background} data-umami-event-badGuyRole={input.badGuyRole} data-umami-event-badGuySpeechContent={input.badGuySpeechContent} isLoading={loading} radius="full" className="bg-gradient-to-tr from-purple-500 to-blue-500 text-white shadow-lg" onClick={submit}>
           还嘴
         </Button>
       </div>
