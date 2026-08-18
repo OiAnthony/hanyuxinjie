@@ -3,27 +3,31 @@
 import { createOpenAI } from '@ai-sdk/openai';
 import {
   streamObject,
-  experimental_wrapLanguageModel as wrapLanguageModel,
-  type CoreMessage,
-  type Experimental_LanguageModelV1Middleware as LanguageModelV1Middleware,
-  type LanguageModelV1StreamPart,
+  wrapLanguageModel,
+  type LanguageModelMiddleware,
+  type ModelMessage,
 } from 'ai';
-import { createStreamableValue } from 'ai/rsc';
+import { createStreamableValue } from '@ai-sdk/rsc';
 import { env } from '~/env';
 import { HanyuxinjieSchema, type UltraClapbackStreamObject, type HanyuxinjieStreamObject, UltimateClapbackOutputSchema, type UltraClapbackInput } from './types';
+
+type LanguageModelStreamPart = Awaited<
+  ReturnType<NonNullable<LanguageModelMiddleware["wrapStream"]>>
+>["stream"] extends ReadableStream<infer Part>
+  ? Part
+  : never;
 
 function getModel() {
   const openai = createOpenAI({
     baseURL: env.AI_BASE_URL,
     apiKey: env.AI_API_KEY,
-    compatibility: "strict"
   })
 
   const model = openai(env.AI_MODEL_NAME);
   return model
 }
 
-const logMiddleware: LanguageModelV1Middleware = {
+const logMiddleware: LanguageModelMiddleware = {
   wrapGenerate: async ({ doGenerate, params }) => {
     console.log('doGenerate called');
     console.log(`params: ${JSON.stringify(params, null, 2)}`);
@@ -31,7 +35,7 @@ const logMiddleware: LanguageModelV1Middleware = {
     const result = await doGenerate();
 
     console.log('doGenerate finished');
-    console.log(`generated text: ${result.text}`);
+    console.log(`generated content: ${JSON.stringify(result.content)}`);
 
     return result;
   },
@@ -45,12 +49,12 @@ const logMiddleware: LanguageModelV1Middleware = {
     let generatedText = '';
 
     const transformStream = new TransformStream<
-      LanguageModelV1StreamPart,
-      LanguageModelV1StreamPart
+      LanguageModelStreamPart,
+      LanguageModelStreamPart
     >({
       transform(chunk, controller) {
         if (chunk.type === 'text-delta') {
-          generatedText += chunk.textDelta;
+          generatedText += chunk.delta;
         }
 
         controller.enqueue(chunk);
@@ -98,7 +102,7 @@ Additional Information for Presentation:
 export async function streamChineseExplanation(word: string) {
   "use server";
 
-  const messages: CoreMessage[] = [
+  const messages: ModelMessage[] = [
     {
       role: 'system',
       content: PROMPT_HANYUXINJIE,
@@ -111,11 +115,10 @@ export async function streamChineseExplanation(word: string) {
 
   const stream = createStreamableValue<HanyuxinjieStreamObject>();
   (async () => {
-    const { partialObjectStream } = await streamObject({
+    const { partialObjectStream } = streamObject({
       model: wrappedModel,
       messages,
       schema: HanyuxinjieSchema,
-      mode: 'json',
     });
 
     for await (const partialObject of partialObjectStream) {
@@ -176,7 +179,7 @@ const PROMPT_ULTIMATE_CLAPBACK = `
 export async function streamUltimateClapback(input: UltraClapbackInput) {
   "use server";
 
-  const messages: CoreMessage[] = [
+  const messages: ModelMessage[] = [
     {
       role: 'system',
       content: PROMPT_ULTIMATE_CLAPBACK,
@@ -189,11 +192,10 @@ export async function streamUltimateClapback(input: UltraClapbackInput) {
 
   const stream = createStreamableValue<UltraClapbackStreamObject>();
   (async () => {
-    const { partialObjectStream } = await streamObject({
+    const { partialObjectStream } = streamObject({
       model: wrappedModel,
       messages,
       schema: UltimateClapbackOutputSchema,
-      mode: 'json',
     });
 
     for await (const partialObject of partialObjectStream) {

@@ -1,7 +1,7 @@
 'use client';
 
-import { Button, Divider, Input, Textarea } from '@nextui-org/react';
-import { readStreamableValue } from 'ai/rsc';
+import { Button, Divider, Input, Textarea } from '@heroui/react';
+import { readStreamableValue } from '@ai-sdk/rsc';
 import { useTheme } from "next-themes";
 import { useState } from 'react';
 import { MagicCard } from '~/components/magicui/magic-card';

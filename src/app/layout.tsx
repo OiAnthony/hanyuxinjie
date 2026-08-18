@@ -3,12 +3,10 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Viewport, type Metadata } from "next";
 
-import { TRPCReactProvider } from "~/trpc/react";
-import { NextUIProvider } from "@nextui-org/react";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeSwitch } from "~/components/theme-switch";
 import { Social } from "~/components/social";
 import { env } from "~/env";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "汉语新解",
@@ -37,17 +35,13 @@ export default function RootLayout({
         )
       }
       <body>
-        <TRPCReactProvider>
-          <NextUIProvider>
-            <NextThemesProvider attribute="class" defaultTheme="light">
-              <div className="flex flex-row absolute right-2 top-2 space-x-2">
-                <Social />
-                <ThemeSwitch />
-              </div>
-              {children}
-            </NextThemesProvider>
-          </NextUIProvider>
-        </TRPCReactProvider>
+        <Providers>
+          <div className="flex flex-row absolute right-2 top-2 space-x-2">
+            <Social />
+            <ThemeSwitch />
+          </div>
+          {children}
+        </Providers>
       </body>
     </html>
   );

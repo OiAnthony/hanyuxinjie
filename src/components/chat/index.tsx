@@ -1,6 +1,6 @@
 'use client';
 
-import { Tab, Tabs } from '@nextui-org/react';
+import { Tab, Tabs } from '@heroui/react';
 import { useState } from 'react';
 import HanyuxinjieChat from './hanyuxinjie';
 import UltimateClapbackChat from './ultimate-clapback';
@@ -11,13 +11,12 @@ export const maxDuration = 30;
 const modeOptions = [
   { key: 'hanyuxinjie', title: '汉语新解' },
   { key: 'ultimate-clapback', title: '最强嘴替' },
-];
+] as const;
 
-const modeKeys = modeOptions.map(option => option.key);
-type ModeKeys = typeof modeKeys[number];
+type ModeKeys = (typeof modeOptions)[number]['key'];
 
 export default function Chat() {
-  const [mode, setMode] = useState<ModeKeys>(modeOptions[1]!.key);
+  const [mode, setMode] = useState<ModeKeys>(modeOptions[1].key);
 
   return (
     <div className="flex flex-col w-full max-w-md mx-auto stretch space-y-4 items-center">
@@ -25,7 +24,10 @@ export default function Chat() {
       <Tabs
         selectedKey={mode}
         onSelectionChange={(key) => {
-          setMode(key.toString());
+          const nextMode = modeOptions.find(option => option.key === key);
+          if (nextMode) {
+            setMode(nextMode.key);
+          }
         }}
         color={"primary"}
       >
